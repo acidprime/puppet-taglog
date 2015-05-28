@@ -5,7 +5,7 @@ Puppet::Reports.register_report(:taglog) do
   desc "Send all matching taged logs to the local syslog"
 
   configfile = File.join(Puppet.settings[:confdir], 'taglog.yaml')
-  (Puppet::ParseError, "Taglog report config file #{configfile} not readable") unless File.exist?(configfile)
+  raise(Puppet::ParseError, "Taglog report config file #{configfile} not readable") unless File.exist?(configfile)
   CONFIG = YAML.load_file(configfile)
 
   # Find all matching messages.
