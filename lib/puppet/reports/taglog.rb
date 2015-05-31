@@ -29,6 +29,7 @@ Puppet::Reports.register_report(:taglog) do
       return
     end
 
+    # Filter based on tags and shows tags in line
     filtered = match(CONFIG['tags'])
     filtered.each do |log|
       log.source = "#{self.host}"
@@ -40,7 +41,7 @@ Puppet::Reports.register_report(:taglog) do
           self.configuration_version,
           log.message,
           "#{log.file}:#{log.line}",
-          CONFIG['tags'].join(',')
+          log.tags.join(',')
         ]
         log.message = message.join(' ')
         Puppet::Util::Log.newmessage(log)
